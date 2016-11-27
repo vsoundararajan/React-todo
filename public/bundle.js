@@ -24754,20 +24754,116 @@
 	'use strict';
 
 	var React = __webpack_require__(1);
+	var TodoList = __webpack_require__(216);
 
 	var TodoApp = React.createClass({
 	    displayName: 'TodoApp',
 
+	    getInitialState: function getInitialState() {
+	        return {
+	            todos: [{
+	                id: 1,
+	                text: 'Walk the dog'
+	            }, {
+	                id: 2,
+	                text: 'Clean the yard'
+	            }, {
+	                id: 3,
+	                text: 'Clean the yard--'
+	            }, {
+	                id: 4,
+	                text: 'Clean the yard------'
+	            }]
+	        };
+	    },
 	    render: function render() {
+	        //console.log(this.state.todos);
+	        var todos = this.state.todos;
+
 	        return React.createElement(
 	            'div',
 	            null,
-	            'TodoApp.jsx'
+	            React.createElement(TodoList, { todos: todos })
 	        );
 	    }
 	});
 
 	module.exports = TodoApp;
+
+/***/ },
+/* 216 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	/**
+	 * Created by soundararajanvenkatasubramanian on 11/26/16.
+	 */
+	var React = __webpack_require__(1);
+	var Todo = __webpack_require__(217);
+
+	var TodoList = React.createClass({
+	    displayName: 'TodoList',
+
+	    getInitialState: function getInitialState() {
+	        //console.log(this.props.todos);
+	        return {
+	            todos: this.props.todos
+	        };
+	    },
+	    renderTodos: function renderTodos() {
+	        return this.state.todos.map(function (todo) {
+	            //console.log(todo);
+	            return React.createElement(Todo, _extends({ text: todo.text, key: todo.id }, todo));
+	        });
+	    },
+	    render: function render() {
+	        return React.createElement(
+	            'div',
+	            null,
+	            this.renderTodos()
+	        );
+	    }
+	});
+
+	module.exports = TodoList;
+
+/***/ },
+/* 217 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	/**
+	 * Created by soundararajanvenkatasubramanian on 11/26/16.
+	 */
+	var React = __webpack_require__(1);
+
+	var Todo = React.createClass({
+	    displayName: 'Todo',
+
+	    getInitialState: function getInitialState() {
+	        return { todo: this.props.text, id: this.props.id };
+	    },
+	    render: function render() {
+	        return React.createElement(
+	            'div',
+	            null,
+	            React.createElement(
+	                'h3',
+	                null,
+	                this.state.id,
+	                '. ',
+	                this.state.todo,
+	                '-'
+	            )
+	        );
+	    }
+	});
+
+	module.exports = Todo;
 
 /***/ }
 /******/ ]);
