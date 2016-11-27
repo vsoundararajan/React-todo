@@ -2,25 +2,20 @@
  * Created by soundararajanvenkatasubramanian on 11/26/16.
  */
 var React = require('react');
-var Todo = require('./Todo');
+var Todo = require('Todo');
 
 var TodoList = React.createClass({
-    getInitialState: function() {
-        //console.log(this.props.todos);
-        return {
-            todos: this.props.todos
-        }
-    },
-    renderTodos: function () {
-        return this.state.todos.map( (todo) => {
-            //console.log(todo);
-           return <Todo text={todo.text} key={todo.id} {...todo}/>
-       });
-    },
     render: function(){
+        var {todos} =  this.props;
+        var renderTodos=  () => {
+            return todos.map( (todo) => {
+                //console.log(todo);
+                return (<Todo key={todo.id} {...todo} onToggle={this.props.onToggle}/>);
+            });
+        }
         return(
             <div>
-                {this.renderTodos()}
+                {renderTodos()}
             </div>
         )
     }
