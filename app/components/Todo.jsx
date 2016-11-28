@@ -7,6 +7,8 @@ var moment = require('moment');
 var Todo = React.createClass({
     render: function(){
         var {id, text, completed, createdAt, completedAt} = this.props;
+        var backgroundColor = completed ? "#e6f2ff" : "#f7ffe6";
+        var borderColor = completed ? "1px solid #3399ff" : "1px solid #aaff00";
         var renderDate = () => {
             var message = 'Created';
             var timestamp = createdAt;
@@ -20,9 +22,10 @@ var Todo = React.createClass({
         return(
             <div onClick={ () => {
                 this.props.onToggle(id);
-            }}>
-                <input type="checkbox" checked={completed} />
-                <p>{text}</p>
+            }} style={{alignItems: "center", backgroundColor: backgroundColor, border: borderColor, borderRadius: "5px", padding: "2px", margin: "5px", textAlign: "left"}} >
+
+                <p><input type="checkbox" checked={completed} />
+                    &nbsp;&nbsp;&nbsp;{text}</p>
                 <p>{renderDate()}</p>
             </div>
         )
