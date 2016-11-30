@@ -17,9 +17,9 @@ store.subscribe( () => {
    console.log('New state', store.getState());
 });
 
-store.dispatch(actions.addTodo("Learn redux with react"));
-store.dispatch(actions.setSearchText("redux"));
-store.dispatch(actions.toggleShowCompleted());
+// store.dispatch(actions.addTodo("Learn redux with react"));
+// store.dispatch(actions.setSearchText("redux"));
+// store.dispatch(actions.toggleShowCompleted());
 
 ReactDOM.render(
     <Provider store={store}>

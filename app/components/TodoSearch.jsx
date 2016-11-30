@@ -2,24 +2,30 @@
  * Created by soundararajanvenkatasubramanian on 11/26/16.
  */
 var React = require('react');
+var {connect} = require('react-redux');
+var actions = require('actions');
 
-var TodoSearch = React.createClass({
-    handleSearch: function(){
-        var showCompleted = this.refs.showCompleted.checked;
-        var searchText = this.refs.searchText.value;
-
-        this.props.onSearch(showCompleted, searchText);
-    },
+export var TodoSearch = React.createClass({
     render: function(){
+        var {dispatch, showCompleted, searchText} = this.props;
         return(
             <div>
                 <div className="container__header"
                      style={{borderBottom: "1px solid #eeeeee", padding: "1rem"}}>
-                    <input type="search" placeholder="Enter nsearch terms" ref="searchText" onChange={this.handleSearch} />
+                    <input type="search" placeholder="Enter nsearch terms" ref="searchText" value={searchText} onChange={
+                        () => {
+                            var searchText = this.refs.searchText.value;
+                            dispatch(actions.setSearchText(searchText));
+                        }
+                    } />
                 </div>
                 <div>
                     <label style={{cursor: "pointer", fontSize: "1rem"}}>
-                        <input type="checkbox" ref="showCompleted" onChange={this.handleSearch}/>&nbsp; Show Completed too
+                        <input type="checkbox" ref="showCompleted" checked={showCompleted} onChange={
+                            () => {
+                                dispatch(actions.toggleShowCompleted());
+                            }
+                        }/>&nbsp; Show Completed too
                     </label>
                 </div>
             </div>
@@ -27,5 +33,12 @@ var TodoSearch = React.createClass({
     }
 });
 
-module.exports = TodoSearch;
+export default connect(
+    (state) => {
+        return {
+            showCompleted: state.showCompleted,
+            searchText: state.searchText
+        }
+    }
+)(TodoSearch)
 
